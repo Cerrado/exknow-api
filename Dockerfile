@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0 as build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0 as build-env
 WORKDIR /app
 
 # always restore dependencies
@@ -10,7 +10,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Create runtime IMAGE
-FROM mcr.microsoft.com/dotnet/core/sdk:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 EXPOSE 80
 COPY --from=build-env /app/out .
